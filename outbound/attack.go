@@ -1,8 +1,11 @@
 package outbound
 
+import "time"
+
 type Attack struct {
-	host             string
-	port             int16
-	attackType       string
-	packetbatchcount int64
+	Host             string    `json:"host"`
+	Port             int16     `json:"port"`
+	AttackType       string    `json:"attack_type"`
+	Packetbatchcount int64     `json:"packet_batch_count"`
+	Createdtime      time.Time `json:"created_time"`
 }
