@@ -20,6 +20,7 @@ func Start() {
 		})
 	})
 	r.GET("/GetAllAttacks", GetAllAttacks)
+	r.POST("/NewAttack", NewAttack)
 	log.Println("Starting server")
 	defer r.Run(":8000")
 }
@@ -53,12 +54,15 @@ func NewAttack(c *gin.Context) {
 	attack.AttackType = c.PostForm("attack_type")
 	attack.Createdtime = time.Now()
 	attacks = append(attacks, attack)
+	c.JSON(200, gin.H{
+		"data": "successful",
+	})
 }
 
 func checkExpiredattacks() {
 	var newattacks []outbound.Attack
 	for _, attack := range attacks {
-		if time.Since(attack.Createdtime) < time.Hour*2 {
+		if time.Since(attack.Createdtime) < time.Hour*1 {
 			newattacks = append(newattacks, attack)
 		}
 	}
