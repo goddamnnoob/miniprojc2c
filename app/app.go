@@ -27,9 +27,8 @@ func Start() {
 
 func GetAllAttacks(c *gin.Context) {
 	checkExpiredattacks()
-	c.JSON(200, gin.H{
-		"data": attacks,
-	})
+	c.Header("Content-Type", "application/json")
+	c.JSON(200, attacks)
 }
 
 func NewAttack(c *gin.Context) {
